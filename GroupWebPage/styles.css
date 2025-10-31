@@ -91,3 +91,11 @@ button {
 button:hover {
     background: #0056b3;
 }
+
+
+.avatar {
+    width: 140px;             /* image size */
+    height: 140px;
+    object-fit: cover;        /* ensures image fills the circle properly */
+    margin: 10px 0;         
+}
