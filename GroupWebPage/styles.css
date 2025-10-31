@@ -46,8 +46,9 @@ header nav button:hover {
     margin: 20px auto;
     display: grid;
     grid-template-columns: repeat(2, minmax(260px, 1fr));
-    gap:20px;
+    gap: 20px;
     justify-items: center;
+    align-items: start;
 }
 
 /* Card styling for individual team bios */
@@ -57,7 +58,6 @@ header nav button:hover {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin: 10px;
     padding: 20px;
-    flex: 1 1 calc(30% - 40px);
     text-align: center;
     transition: transform 0.2s;
     width: 80%
