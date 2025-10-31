@@ -53,7 +53,6 @@ header nav button:hover {
 
 /* Card styling for individual team bios */
 .card {
-    background: white;
     border-radius: 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin: 10px;
@@ -62,6 +61,23 @@ header nav button:hover {
     transition: transform 0.2s;
     width: 80%
 }
+
+/* Unique colors for each team card */
+.card:nth-child(1) {
+    background-color: #fef6d8; /* light yellow for Patricia */
+  }
+  
+  .card:nth-child(2) {
+    background-color: #d8eaff; /* light blue for Andre */
+  }
+  
+  .card:nth-child(3) {
+    background-color: #e7ffd8; /* light green for Justin */
+  }
+  
+  .card:nth-child(4) {
+    background-color: #fcd8e8; /* light pink for Jayden */
+  }
 
 .card:hover {
     transform: scale(1.05);
