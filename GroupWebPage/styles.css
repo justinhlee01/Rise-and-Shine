@@ -78,6 +78,14 @@ h2 {
     color: #555;
 }
 
+/* Layout for bio when visible */
+.bio.show {
+    display: flex;              /* make text and images align */
+    flex-direction: column;     /* text on top, images below */
+    align-items: center;        /* center everything horizontally */
+    gap: 10px;
+}
+
 /* Button styling */
 button {
     background: #007BFF;
@@ -115,4 +123,4 @@ button:hover {
   display: block;
   margin-left: auto;
   margin-right: auto;
-}
+} 
