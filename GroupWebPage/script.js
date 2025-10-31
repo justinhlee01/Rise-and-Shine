@@ -22,7 +22,7 @@ function showSection(sectionId) {
 
     // Display the bios section and hide the vision section
     if (sectionId === "bios") {
-        biosSection.style.display = "flex";
+        biosSection.style.display = "grid";
         visionSection.style.display = "none";
     }
     // Display the vision section and hide the bios section
