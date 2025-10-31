@@ -94,8 +94,8 @@ button:hover {
 
 
 .avatar {
-    width: 140px;             /* image size */
+    width: 140px;            
     height: 140px;
-    object-fit: cover;        /* ensures image fills the circle properly */
+    object-fit: cover;        
     margin: 10px 0;         
 }
