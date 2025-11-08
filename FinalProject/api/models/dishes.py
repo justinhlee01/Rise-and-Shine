@@ -1,14 +1,12 @@
-from sqlalchemy import Column, ForeignKey, Integer
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, Integer, String, Text, DECIMAL
 from ..dependencies.database import Base
 
-class Recipe(Base):
-    __tablename__ = "recipes"
+class Dish(Base):
+    __tablename__ = "dishes"
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    dish_id = Column(Integer, ForeignKey("dishes.id"))      
-    resource_id = Column(Integer, ForeignKey("resources.id"))
-    amount = Column(Integer, index=True, nullable=False, server_default="0")
-
-    dish = relationship("Dish", back_populates="recipes")     
-    resource = relationship("Resource", back_populates="recipes")
+    dish_name = Column(String(100), unique=True, nullable=False)  
+    ingredients = Column(Text, nullable=False)                     
+    calories = Column(Integer, nullable=False)                   
+    food_catagories = Column(String(100), nullable=False)         
+    price = Column(DECIMAL(6, 2), nullable=False)                 
