@@ -7,7 +7,7 @@ def index():
     orders.Base.metadata.create_all(engine)
     order_details.Base.metadata.create_all(engine)
     resources.Base.metadata.create_all(engine)
-    dishes.Base.metadate_create_all(engine)
+    dishes.Base.metadata.create_all(engine)
     payment_info.Base.metadata.create_all(engine)
     customers.Base.metadata.create_all(engine)
     promotions.Base.metadata.create_all(engine)
