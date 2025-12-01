@@ -21,6 +21,7 @@ class CustomerUpdate(BaseModel):
 
 class Customer(CustomerBase):
     email: str
+    order_id : int
 
     class ConfigDict:
         from_attributes = True
