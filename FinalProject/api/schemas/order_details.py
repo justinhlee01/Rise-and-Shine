@@ -10,11 +10,11 @@ class OrderDetailBase(BaseModel):
 
 class OrderDetailCreate(OrderDetailBase):
     order_id: int
-    sandwich_id: int
+    dish_id: int
 
 class OrderDetailUpdate(BaseModel):
     order_id: Optional[int] = None
-    sandwich_id: Optional[int] = None
+    dish_id: Optional[int] = None
     amount: Optional[int] = None
 
 
