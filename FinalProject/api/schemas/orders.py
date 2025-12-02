@@ -13,6 +13,7 @@ class OrderBase(BaseModel):
     # Optional stuff
     description: Optional[str] = None
     customer_email: Optional[str] = None  # link to account if they have one
+    promo_code: Optional[str] = None
 
 
 class OrderCreate(OrderBase):

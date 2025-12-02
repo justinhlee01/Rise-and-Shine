@@ -17,6 +17,7 @@ def create(db: Session, request):
         customer_email=request.customer_email,
         description=request.description,
         status="pending",
+        promo_code=request.promo_code
     )
 
     try:
