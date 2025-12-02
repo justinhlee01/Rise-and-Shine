@@ -1,5 +1,8 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status, Response, Depends
+from datetime import datetime
+from ..models import orders as order_model
+from ..models import promotions as promo_model
 from ..models import promotions as model
 from sqlalchemy.exc import SQLAlchemyError
 
@@ -66,3 +69,21 @@ def delete(db: Session, item_id):
         error = str(e.__dict__['orig'])
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=error)
     return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+def apply_promo(db: Session, order_id: int, code: str):
+    order = db.query(order_model.Order).filter(order_model.Order.id == order_id).first()
+    if not order:
+        raise HTTPException(404, "Order not found")
+
+    promo = (
+        db.query(promo_model.Promotion)
+        .filter(promo_model.Promotion.code == code)
+        .first()
+    )
+    if not promo or promo.expires_at < datetime.now():
+        raise HTTPException(400, "Invalid or expired promo code")
+
+    order.promo_code = code
+    db.commit()
+    db.refresh(order)
+    return order
