@@ -4,8 +4,9 @@ from pydantic import BaseModel
 
 
 class CustomerBase(BaseModel):
+    email : str
     customer_name : str
-    phone_num : int
+    phone_num : str
     address : str
 
 
@@ -14,14 +15,12 @@ class CustomerCreate(CustomerBase):
 
 
 class CustomerUpdate(BaseModel):
+    email: Optional[str] = None
     customer_name: Optional[str] = None
     phone_num: Optional[str] = None
     address: Optional[str] = None
 
 
 class Customer(CustomerBase):
-    email: str
-    order_id : int
-
     class ConfigDict:
         from_attributes = True
