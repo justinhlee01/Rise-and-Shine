@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, ForeignKey, String
+from sqlalchemy import Column, Integer, ForeignKey, String, Boolean
 from sqlalchemy.orm import relationship
 from ..dependencies.database import Base
 
@@ -6,12 +6,11 @@ from ..dependencies.database import Base
 class PaymentInfo(Base):
     __tablename__ = "payment_info"
 
-    payment_id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     order_id = Column(Integer, ForeignKey("orders.id"), unique=True, nullable=False)
+    amount = Column(Integer, nullable=False)
+    is_cash = Column(Boolean, nullable=False, server_default="0")
+    card_num = Column(Integer, nullable=True)
+    cvv = Column(Integer, nullable=True)
 
-    customer_email = Column(String(255), ForeignKey("customers.email"), nullable=False)
-
-    card_num = Column(Integer, nullable=False)
-    cvv = Column(Integer, nullable=False)
-
-    order = relationship("Order", back_populates="payment_info", uselist=False)
+    order = relationship("Order", back_populates="payment_info")

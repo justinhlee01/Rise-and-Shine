@@ -4,8 +4,10 @@ from pydantic import BaseModel
 
 
 class PaymentBase(BaseModel):
+    amount: float
     card_num: int
     cvv: int
+    is_cash: bool = False
 
 
 class PaymentCreate(PaymentBase):
