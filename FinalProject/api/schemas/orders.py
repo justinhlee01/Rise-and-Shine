@@ -1,13 +1,18 @@
-from datetime import datetime
 from typing import Optional
+from datetime import datetime
 from pydantic import BaseModel
-from .order_details import OrderDetail
-
 
 
 class OrderBase(BaseModel):
-    customer_email: str
+    # Guest-friendly fields (no account required)
+    customer_name: str
+    customer_phone: str
+    delivery_address: str
+    order_type: str  # "takeout" or "delivery"
+
+    # Optional stuff
     description: Optional[str] = None
+    customer_email: Optional[str] = None  # link to account if they have one
 
 
 class OrderCreate(OrderBase):
@@ -15,13 +20,15 @@ class OrderCreate(OrderBase):
 
 
 class OrderUpdate(BaseModel):
-    customer_email: Optional[str] = None
+    status: Optional[str] = None
     description: Optional[str] = None
+    promo_code: Optional[str] = None
 
 
 class Order(OrderBase):
     id: int
-    order_date: datetime = None
+    status: str
+    order_date: datetime
 
     class ConfigDict:
         from_attributes = True
