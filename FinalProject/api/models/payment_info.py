@@ -7,7 +7,7 @@ class PaymentInfo(Base):
     __tablename__ = "payment_info"
 
     payment_id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    order_detail_id = Column(Integer, ForeignKey("order_details.id"), unique=True, nullable=False)
+    order_id = Column(Integer, ForeignKey("orders.id"), unique=True, nullable=False)
 
     card_num = Column(Integer, nullable=False)
     cvv = Column(Integer, nullable=False)
