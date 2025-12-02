@@ -1,8 +1,9 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status, Response, Depends
+from ..models import rating_reviews as model
 from sqlalchemy.exc import SQLAlchemyError
 
-from ..models import rating_reviews as model
+
 
 
 def create(db: Session, request):
