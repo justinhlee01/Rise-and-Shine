@@ -81,7 +81,7 @@ def apply_promo(db: Session, order_id: int, code: str):
         .filter(promo_model.Promotion.code == code)
         .first()
     )
-    if not promo or promo.expires_at < datetime.now():
+    if not promo or promo.exp_date < datetime.now():
         raise HTTPException(400, "Invalid or expired promo code")
 
     order.promo_code = code

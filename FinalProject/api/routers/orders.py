@@ -43,3 +43,8 @@ def update(order_id: int, request: schema.OrderUpdate, db: Session = Depends(get
 @router.delete("/{item_id}")
 def delete(item_id: int, db: Session = Depends(get_db)):
     return controller.delete(db=db, item_id=item_id)
+
+@router.post("/{order_id}/apply-promo")
+def apply_promo(order_id: int, body: dict, db: Session = Depends(get_db)):
+    promotion_num = body.get("promotion_num")
+    return controller.apply_promo(db=db, order_id=order_id, promotion_num=promotion_num)

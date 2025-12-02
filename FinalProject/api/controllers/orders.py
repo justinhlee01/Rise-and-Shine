@@ -5,6 +5,7 @@ from datetime import date, datetime
 from ..models import payment_info as payment_model
 from ..models import orders as model
 from ..models import customers as customer_model
+from ..models import promotions as promo_model
 from sqlalchemy.exc import SQLAlchemyError
 
 
@@ -96,3 +97,21 @@ def delete(db: Session, item_id):
         error = str(e.__dict__['orig'])
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=error)
     return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+def apply_promo(db: Session, order_id: int, promotion_num: str):
+    order = db.query(model.Order).filter(model.Order.id == order_id).first()
+    if not order:
+        raise HTTPException(404, "Order not found")
+
+    promo = (
+        db.query(promo_model.Promotion)
+        .filter(promo_model.Promotion.promotion_num == promotion_num)
+        .first()
+    )
+    if not promo or promo.exp_date < datetime.now():
+        raise HTTPException(400, "Invalid or expired promo code")
+
+    order.promo_code = promotion_num
+    db.commit()
+    db.refresh(order)
+    return order
