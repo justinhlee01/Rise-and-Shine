@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, FastAPI, status, Response
 from sqlalchemy.orm import Session
 from ..controllers import dishes as controller
 from ..schemas import dishes as schema
+from ..models import dishes as model
 from ..dependencies.database import engine, get_db
 
 router = APIRouter(
@@ -23,6 +24,16 @@ def read_all(db: Session = Depends(get_db)):
 @router.get("/{item_id}", response_model=schema.Dish)
 def read_one(item_id: int, db: Session = Depends(get_db)):
     return controller.read_one(db, item_id=item_id)
+
+@router.get("/search", response_model=list[schema.Dish])
+def search_dishes(
+    is_vegetarian: bool | None = None,
+    db: Session = Depends(get_db),
+):
+    q = db.query(model.Dish)
+    if is_vegetarian is not None:
+        q = q.filter(model.Dish.is_vegetarian == is_vegetarian)
+    return q.all()
 
 
 @router.put("/{item_id}", response_model=schema.Dish)

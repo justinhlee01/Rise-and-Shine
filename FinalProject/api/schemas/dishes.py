@@ -7,6 +7,7 @@ class DishBase(BaseModel):
     dish_name: str
     food_category: str
     price: float
+    is_vegetarian: bool = False
 
 
 class DishCreate(DishBase):
