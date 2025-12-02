@@ -38,13 +38,9 @@ def read_all(db: Session):
     return result
 
 
-def read_one(db: Session, item_id: int):
+def read_one(db: Session, dish_id: int):
     try:
-        item = (
-            db.query(model.RatingReviews)
-            .filter(model.RatingReviews.id == item_id)
-            .first()
-        )
+        item = db.query(model.RatingReviews).filter(model.RatingReviews.dish_id == dish_id).all()
         if not item:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
