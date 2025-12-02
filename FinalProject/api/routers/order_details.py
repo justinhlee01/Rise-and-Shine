@@ -5,8 +5,8 @@ from ..schemas import order_details as schema
 from ..dependencies.database import engine, get_db
 
 router = APIRouter(
-    tags=['Order Details'],
-    prefix="/orderdetails"
+    tags=['OrderDetails'],
+    prefix="/order-details"
 )
 
 
