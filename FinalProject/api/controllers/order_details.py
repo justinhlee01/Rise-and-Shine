@@ -1,6 +1,8 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status, Response, Depends
 from ..models import order_details as model
+from ..models import recipes as recipe_model
+from ..models import resources as resource_model
 from sqlalchemy.exc import SQLAlchemyError
 from typing import List
 
@@ -75,8 +77,8 @@ def delete(db: Session, item_id):
 def _check_inventory_for_dish(db: Session, dish_id: int, quantity: int) -> None:
     """Raises HTTPException(400) if any ingredient is insufficient."""
     # All recipe rows for this dish (what ingredients it needs)
-    recipes = db.query(model.Recipe).filter(
-        model.Recipe.dish_id == dish_id
+    recipes = db.query(recipe_model.Recipe).filter(
+        recipe_model.Recipe.dish_id == dish_id
     ).all()
 
     if not recipes:
@@ -90,8 +92,8 @@ def _check_inventory_for_dish(db: Session, dish_id: int, quantity: int) -> None:
 
     for r in recipes:
         required = r.amount * quantity
-        resource = db.query(model.Resource).filter(
-            model.Resource.id == r.resource_id
+        resource = db.query(resource_model.Resource).filter(
+            resource_model.Resource.id == r.resource_id
         ).first()
 
         if resource is None:
@@ -125,8 +127,8 @@ def _check_inventory_for_dish(db: Session, dish_id: int, quantity: int) -> None:
     # Optional: if everything is OK, reserve / decrement inventory here:
     for r in recipes:
         required = r.amount * quantity
-        resource = db.query(model.Resource).filter(
-            model.Resource.id == r.resource_id
+        resource = db.query(resource_model.Resource).filter(
+            resource_model.Resource.id == r.resource_id
         ).first()
         resource.amount -= required
 
