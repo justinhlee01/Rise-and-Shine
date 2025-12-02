@@ -12,4 +12,4 @@ class PaymentInfo(Base):
     card_num = Column(Integer, nullable=False)
     cvv = Column(Integer, nullable=False)
 
-    order_detail = relationship("OrderDetail", back_populates="payment_info", uselist=False)
+    order = relationship("Order", back_populates="payment_info", uselist=False)
