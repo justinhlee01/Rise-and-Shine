@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 class DishBase(BaseModel):
     dish_name: str
-    food_catagory: str
+    food_category: str
     price: float
 
 
