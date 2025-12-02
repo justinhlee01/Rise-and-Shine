@@ -14,6 +14,6 @@ class Customer(Base):
     order_id = Column(Integer, ForeignKey("orders.id"))
 
 
-    order = relationship("Order", back_populates="Customer")
+    order = relationship("Order", back_populates="customer")
 
     # test
