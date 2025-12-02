@@ -10,6 +10,7 @@ class Recipe(Base):
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     dish_id = Column(Integer, ForeignKey("dishes.id"))
     resource_id = Column(Integer, ForeignKey("resources.id"))
+    
     amount = Column(Integer, index=True, nullable=False, server_default='0.0')
 
     dish = relationship("Dish", back_populates="recipes")

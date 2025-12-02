@@ -11,6 +11,8 @@ class OrderDetail(Base):
     order_id = Column(Integer, ForeignKey("orders.id"))
     dish_id = Column(Integer, ForeignKey("dishes.id"))
 
+    amount = Column(Integer, nullable=False, server_default="1")
+
     dish = relationship("Dish", back_populates="order_details")
     order = relationship("Order", back_populates="order_details")
 

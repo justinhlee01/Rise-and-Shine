@@ -11,5 +11,5 @@ class Dish(Base):
     food_catagory = Column(String(100), nullable=False)         
     price = Column(DECIMAL(6, 2), nullable=False)      
 
-    recipes = relationship("Recipe", back_populates="dish")
+    recipes = relationship("Recipe", back_populates="dish", cascade="all, delete-orphan")
     order_details = relationship("OrderDetail", back_populates="dish")           
