@@ -12,6 +12,7 @@ class OrderDetailCreate(OrderDetailBase):
     order_id: int
     dish_id: int
 
+
 class OrderDetailUpdate(BaseModel):
     order_id: Optional[int] = None
     dish_id: Optional[int] = None

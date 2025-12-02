@@ -1,12 +1,26 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status, Response, Depends
 from ..models import orders as model
+from ..models import customers as customer_model
 from sqlalchemy.exc import SQLAlchemyError
 
 
 def create(db: Session, request):
+    # verify the customer exists
+    customer = (
+        db.query(customer_model.Customer)
+        .filter(customer_model.Customer.email == request.customer_email)
+        .first()
+    )
+
+    if not customer:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Customer with email {request.customer_email} not found",
+        )
+    
     new_item = model.Order(
-        customer_name=request.customer_name,
+        customer_email=request.customer_email,
         description=request.description
     )
 
