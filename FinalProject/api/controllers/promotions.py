@@ -71,20 +71,3 @@ def delete(db: Session, item_id):
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=error)
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
-def apply_promo(db: Session, order_id: int, code: str):
-    order = db.query(order_model.Order).filter(order_model.Order.id == order_id).first()
-    if not order:
-        raise HTTPException(404, "Order not found")
-
-    promo = (
-        db.query(promo_model.Promotion)
-        .filter(promo_model.Promotion.code == code)
-        .first()
-    )
-    if not promo or promo.exp_date < datetime.now():
-        raise HTTPException(400, "Invalid or expired promo code")
-
-    order.promo_code = code
-    db.commit()
-    db.refresh(order)
-    return order
