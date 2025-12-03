@@ -13,4 +13,5 @@ class Dish(Base):
     is_vegetarian = Column(Boolean, nullable=False, server_default="0")      
 
     recipes = relationship("Recipe", back_populates="dish")
-    order_details = relationship("OrderDetail", back_populates="dish")           
+    order_details = relationship("OrderDetail", back_populates="dish")        
+    rating_reviews = relationship("RatingReviews", back_populates="dish")   

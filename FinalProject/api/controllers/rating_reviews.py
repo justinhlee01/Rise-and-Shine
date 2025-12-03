@@ -4,12 +4,11 @@ from ..models import rating_reviews as model
 from sqlalchemy.exc import SQLAlchemyError
 
 
-
-
 def create(db: Session, request):
     new_item = model.RatingReviews(
         review=request.review,
         score=request.score,
+        dish_id=request.dish_id
     )
 
     try:
@@ -38,9 +37,25 @@ def read_all(db: Session):
     return result
 
 
-def read_one(db: Session, dish_id: int):
+def read_dish(db: Session, dish_id: int):
     try:
         item = db.query(model.RatingReviews).filter(model.RatingReviews.dish_id == dish_id).all()
+        if not item:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="Id not found!",
+            )
+    except SQLAlchemyError as e:
+        error = str(e.__dict__["orig"])
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=error,
+        )
+    return item
+
+def read_one(db: Session, item_id: int):
+    try:
+        item = db.query(model.RatingReviews).filter(model.RatingReviews.id == item_id).all()
         if not item:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,

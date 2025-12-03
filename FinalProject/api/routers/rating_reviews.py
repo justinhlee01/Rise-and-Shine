@@ -24,7 +24,11 @@ def read_all(db: Session = Depends(get_db)):
 
 @router.get("/by-dish/{dish_id}", response_model=list[schema.RatingReviews])
 def get_reviews_for_dish(dish_id: int, db: Session = Depends(get_db)):
-    return controller.read_one(db=db, dish_id=dish_id)
+    return controller.read_dish(db=db, dish_id=dish_id)
+
+@router.get("/{item_id}", response_model=list[schema.RatingReviews])
+def get_reviews_for_dish(item_id: int, db: Session = Depends(get_db)):
+    return controller.read_one(db=db, item_id=item_id)
 
 
 @router.put("/{item_id}", response_model=schema.RatingReviews)

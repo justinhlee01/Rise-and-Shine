@@ -4,6 +4,7 @@ from pydantic import BaseModel
 
 
 class RatingReviewsBase(BaseModel):
+    dish_id: int
     review : str
     score : float
 
