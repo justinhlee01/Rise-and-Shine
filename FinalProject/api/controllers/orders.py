@@ -72,9 +72,9 @@ def daily_revenue(db: Session, target_date: date):
     return {"date": target_date.isoformat(), "total_revenue": float(total)}
 
 
-def update(db: Session, item_id, request):
+def update(db: Session, order_id, request):
     try:
-        item = db.query(model.Order).filter(model.Order.id == item_id)
+        item = db.query(model.Order).filter(model.Order.id == order_id)
         if not item.first():
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Id not found!")
         update_data = request.dict(exclude_unset=True)
