@@ -43,9 +43,9 @@ def read_one(db: Session, item_id):
     return item
 
 
-def update(db: Session, item_id, request):
+def update(db: Session, order_id, request):
     try:
-        item = db.query(model.Dish).filter(model.Dish.id == item_id)
+        item = db.query(model.Dish).filter(model.Dish.id == order_id)
         if not item.first():
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Id not found!")
         update_data = request.dict(exclude_unset=True)
