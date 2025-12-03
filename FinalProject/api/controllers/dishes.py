@@ -8,7 +8,8 @@ def create(db: Session, request):
     new_item = model.Dish(
         dish_name=request.dish_name,
         food_category=request.food_category,
-        price=request.price
+        price=request.price,
+        is_vegetarian=request.is_vegetarian
     )
 
     try:
